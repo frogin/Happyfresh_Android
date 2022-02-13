@@ -1,9 +1,7 @@
 package steps;
 
 import Base.BaseUtil;
-import Base.RestAssuredExtension;
 import io.cucumber.java.*;
-import org.openqa.selenium.By;
 
 import java.io.IOException;
 
@@ -19,8 +17,6 @@ public class Hook extends BaseUtil{
     public void setUp() throws IOException, InterruptedException {
         System.out.println("HOOK BEFORE");
         setupAppium("localURL");
-        getPackage();
-        //driver.findElement(By.id("com.android.vending:id/0_resource_name_obfuscated")).click();
     }
 
 
@@ -28,8 +24,6 @@ public class Hook extends BaseUtil{
     public void closeAppSwitch() {
         System.out.println("HOOK AFTER");
   //      driver.resetApp();
-        driver.closeApp();
-        driver.quit();
     }
 
 

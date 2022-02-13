@@ -1,16 +1,12 @@
 package pages;
 
-import Base.BaseData;
 import Base.BaseUtil;
 import Base.ElementAction;
-import gherkin.lexer.Th;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends BaseUtil {
@@ -20,54 +16,61 @@ public class HomePage extends BaseUtil {
     public HomePage(AndroidDriver<MobileElement> driver) {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
     }
-    @AndroidFindBy(id = "btn_login")
-    public MobileElement btnLogin;
+    @AndroidFindBy(id = "ui_view_privacy_policy_button_agree")
+    public MobileElement btnAgree;
+    public static String agreeBtn="ui_view_privacy_policy_button_agree";
 
-    @AndroidFindBy(id = "img_country_picker")
-    public MobileElement btnCountryFlag;
+    @AndroidFindBy(id = "ui_view_privacy_policy_button_disagree")
+    public MobileElement btnDisAgree;
 
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Bahasa Indonesia']")
-    public MobileElement txtBahasa;
+    @AndroidFindBy(id = "ui_view_skip_on_boarding_button")
+    public MobileElement btnSkip;
 
-    @AndroidFindBy(id = "feed_item_image")
-    public MobileElement banner;
+    @AndroidFindBy(id = "ui_view_next_on_boarding_button")
+    public MobileElement btnContinue;
 
-    @AndroidFindBy(id = "android:id/button_once")
-    public MobileElement once;
+    @AndroidFindBy(id = "ui_view_sub_menu_language_switch_textview")
+    public MobileElement btnFlag;
 
-    @AndroidFindBy(id = "tv_display_description_text")
-    public MobileElement evDet;
+    @AndroidFindBy(id = "permission_allow_foreground_only_button")
+    public MobileElement btnAllowPermission;
+
+    @AndroidFindBy(id = "ui_view_input_product_find_product_edittext")
+    public MobileElement inputSearch;
+
+    @AndroidFindBy(id = "home_bottom_navigation")
+    public static  MobileElement btnBeranda;
+
+    @AndroidFindBy(id = "orders_bottom_navigation")
+    public static MobileElement btnPesananSaya;
+
+    @AndroidFindBy(id = "deals_bottom_navigation")
+    public MobileElement btnPenawaran;
+
+    @AndroidFindBy(id = "notification_bottom_navigation")
+    public MobileElement btnNotifikasi;
+
+    @AndroidFindBy(id = "account_bottom_navigation")
+    public MobileElement btnAkun;
 
 
-    public void CheckElementHomepage() throws InterruptedException {
-        Thread.sleep(4000);
-        driver.findElements(By.id(BaseUtil.packageName));
-       action.waitUntiElementPresent(By.id("btn_login"));
-        action.checkTextCountains(BaseData.HomePage.WelcomeTitle_ENG);
-        action.checkTextCountains(BaseData.HomePage.WelcomeTitleBody_ENG);
-        action.checkTextCountains(BaseData.HomePage.ButtonLogin_ENG);
-        action.checkTextCountains(BaseData.HomePage.Footer_ENG);
-        btnCountryFlag.click();
-        action.waitUntiElementPresent(By.xpath("//android.widget.TextView[@text='Bahasa Indonesia']"));
-        action.checkTextCountains(BaseData.HomePage.ChangeLanguage_ENG);
-        action.checkTextCountains(BaseData.HomePage.ChangeLanguage2_ENG);
-        txtBahasa.click();
-        action.waitUntiElementPresent(By.id("btn_login"));
-        action.checkTextCountains(BaseData.HomePage.WelcomeTitle_ID);
-        action.checkTextCountains(BaseData.HomePage.WelcomeTitleBody_ID);
-        action.checkTextCountains(BaseData.HomePage.ButtonLogin_ID);
-        action.checkTextCountains(BaseData.HomePage.Footer_ID);
+    public void UserCheckAllEmelementHomepage() throws InterruptedException {
+        System.out.println("FIRST");
+        action.waitUntiElementPresent(By.id(agreeBtn));
+        Thread.sleep(3000);
+        btnAgree.isDisplayed();
+        btnDisAgree.isDisplayed();
+        btnAgree.click();
+        btnSkip.click();
     }
 
-    public void ClickButtonLogin() throws InterruptedException {
-        btnLogin.click();
+    public void UserCheckAllEmelementLandingPage() {
+        btnBeranda.isDisplayed();
+        btnPesananSaya.isDisplayed();
+        btnPenawaran.isDisplayed();
+        btnNotifikasi.isDisplayed();
+        btnAkun.isDisplayed();
     }
 
-    public void banner() throws InterruptedException {
-        banner.click();
-        once.click();
-        evDet.click();
-        Thread.sleep(2000);
-    }
 
 }

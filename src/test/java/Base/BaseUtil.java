@@ -1,19 +1,10 @@
 package Base;
-import Base.AndroidCapabilityType;
-import Base.BaseData;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.LoginPage;
-import steps.LoginStep;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,9 +20,7 @@ public class BaseUtil {
     public static URL url;
     public static DesiredCapabilities capabilities;
     public static AndroidDriver<MobileElement> driver;
-    public static TouchAction touchAction;
     public WebDriverWait wait;
-    public static String packageName = "";
 
 
     public void setupAppium(String urlServer) throws MalformedURLException, IOException {
@@ -54,8 +43,8 @@ public class BaseUtil {
                     capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, configFile.getProperty("androidPlatformVersion"));
                     capabilities.setCapability(AndroidCapabilityType.APP_PACKAGE, configFile.getProperty("androidAppPackage"));
                     capabilities.setCapability(AndroidCapabilityType.APP_ACTIVITY, configFile.getProperty("androidAppActivity"));
-                    capabilities.setCapability(MobileCapabilityType.NO_RESET, "true");
-                    capabilities.setCapability(MobileCapabilityType.FULL_RESET, "false");
+                    //capabilities.setCapability(MobileCapabilityType.NO_RESET, "false");
+                    //capabilities.setCapability(MobileCapabilityType.FULL_RESET, "true");
                     capabilities.setCapability(AndroidCapabilityType.AUTO_GRANT_PERMISSION, "true");
                     capabilities.setCapability(MobileCapabilityType.APP, apk_Path);
                     driver = new AndroidDriver <MobileElement>(url, capabilities);
@@ -65,22 +54,6 @@ public class BaseUtil {
                 /* Use Cloud Server */
                 case "cloudURL":
                     // Set your access credentials
-                    capabilities.setCapability("browserstack.user", "rahmatzailani_nNORfs");
-                    capabilities.setCapability("browserstack.key", "vssz8kgHJaxekx695RNS");
-
-                    // Set URL of the application under test
-                    capabilities.setCapability("app", "bs://97ed92bf3f142df76b49eed0f9ecfdcd3d538d12");
-
-                    // Specify device and os_version for testing
-                    capabilities.setCapability("device", "Google Pixel 3a XL");
-                    capabilities.setCapability("os_version", "9.0");
-
-                    // Set other BrowserStack capabilities
-                    capabilities.setCapability("project", "GOPLAY");
-                    capabilities.setCapability("build", "GOPLAY ANDROID");
-                    capabilities.setCapability("name", "Testcase Android");
-                    driver = new AndroidDriver<MobileElement>(
-                            new URL("http://hub.browserstack.com/wd/hub"), capabilities);
 
                     break;
             }
@@ -93,33 +66,7 @@ public class BaseUtil {
         driver.hideKeyboard();
         wait = new WebDriverWait(driver, 15);
 
-//        //Populating the properties file
-        configFile.setProperty("Device Name", "udid");
-        configFile.setProperty("Android Version", "androidPlatformVersion");
-        File file = new File("target\\allure-results");
-        FileOutputStream fileOut = new FileOutputStream(file);
-        configFile.store(fileOut, "Device Info");
-        fileOut.close();
-    }
 
-    public void getPackage() throws InterruptedException {
-        LoginPage page = new LoginPage(driver);
 
-        //driver.closeApp();
-        String getPackage = driver.getCurrentPackage();
-        System.out.println(getPackage);
-        packageName = getPackage+":id";
-        System.out.println(packageName);
-        if(getPackage.equals("com.goplay.android.dev")){
-            page.userDoLogin();
-        }
-        else{
-            System.out.println("RUNNING IN PROD");
-        }
-    }
-
-    public void uninstallApp() {
-
-        driver.removeApp(BaseData.ApplicationInformation.ANDROID_APPLICATION_PACKAGE);
-    }
+}
 }

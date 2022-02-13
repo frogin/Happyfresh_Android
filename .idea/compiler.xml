@@ -7,11 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="GoPlay_Android" />
+        <module name="Happyfresh" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
-      <module name="GoPlay_Android" target="11" />
+      <module name="Happyfresh" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

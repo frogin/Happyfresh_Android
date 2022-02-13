@@ -1,58 +1,49 @@
 package steps;
 
 import Base.BaseUtil;
-import io.cucumber.java.DataTableType;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import pages.HomePage;
 import pages.LoginPage;
-import java.util.Map;
 
 public class LoginStep extends BaseUtil {
 
-    private  BaseUtil base;
+    @Given("I Navigate to login page")
+    public void iNavigateToLoginPage () throws InterruptedException {
+        LoginPage login = new LoginPage(driver);
+        login.NavigateToLoginPage();
 
-    @And("^I click login button$")
-    public void iClickLoginButton() throws Throwable {
-        HomePage page = new HomePage(driver);
-        page.ClickButtonLogin();
+
     }
 
-    @And("^I enter ([^\"]*) and ([^\"]*)$")
-    public void iEnterUsernameAndPassword(String userName, String password) throws Throwable {
-        System.out.println("UserName is : " + userName);
-        System.out.println("Password is : " + password);
+    @And("I input ([^\"]*) ([^\"]*)$")
+    public void iInputEmailPasword(String email, String password) throws InterruptedException {
+        LoginPage login = new LoginPage(driver);
+        login.UserDoLogin(email, password);
     }
 
-    @Then("I should see login form")
-    public void iShouldSeeLoginForm() throws InterruptedException {
-        LoginPage page = new LoginPage(driver);
-        page.CheckElementLoginPage();
+
+
+
+    @And("I click login button")
+    public void iClickLoginButton() {
+        LoginPage login = new LoginPage(driver);
+        login.ClickLoginButton();
+
     }
 
-    @And("I input wrong phone number")
-    public void iInputWrongPhoneNumber() throws Throwable {
-        LoginPage page = new LoginPage(driver);
-        page.InputWrongNumber();
+    @Then("I should entering landing page")
+    public void iShouldEnteringLandingPage() {
+        LoginPage login = new LoginPage(driver);
+        login.UserReachLandingPage();
+
     }
 
-    @Then("I should see modal alert to register")
-    public void iShouldSeeModalAlertToRegister() throws InterruptedException {
-        LoginPage page = new LoginPage(driver);
-        page.CheckModalRegister();
+    @Then("I should see error alert")
+    public void iShouldSeeErrorAlert() {
+        LoginPage login = new LoginPage(driver);
+        login.AlertWrongCredentials();
     }
-
-    @And("I login using India number")
-    public void iLoginUsingIndiaNumber() throws InterruptedException{
-        LoginPage page = new LoginPage(driver);
-        page.loginWithIndiaNumber();
-    }
-
-    @Given("User do login")
-    public void userDoLogin() throws InterruptedException{
-        LoginPage page = new LoginPage(driver);
-        page.userDoLogin();
-    }
-
 }
+
